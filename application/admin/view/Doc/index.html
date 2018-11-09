@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <script type="text/javascript" src="__STATIC__/Admin/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/Admin/js/common.js"></script>
+    <script type="text/javascript" src="__STATIC__/Admin/js/WdatePicker.js"></script>
+    <script src="__STATIC__/Admin/layer/layer.js"></script>
+    <script src="__STATIC__/Admin/layui/layui.js"></script>
+
+<link rel="stylesheet" href="__STATIC__/Admin/css/base.css" />
+<link rel="stylesheet" href="__STATIC__/Admin/css/info-mgt.css" />
+<link rel="stylesheet" href="__STATIC__/Admin/css/WdatePicker.css" />
+    <link rel="stylesheet" href="__STATIC__/Admin/layui/css/layui.css" />
+<title>移动办公自动化系统</title>
+<style type='text/css'>
+	table tr .id{ width:63px; text-align: center;}
+	table tr .name{ width:118px; padding-left:17px;}
+	table tr .nickname{ width:63px; padding-left:17px;}
+	table tr .dept_id{ width:63px; padding-left:13px;}
+	table tr .sex{ width:63px; padding-left:13px;}
+	table tr .birthday{ width:80px; padding-left:13px;}
+	table tr .tel{ width:113px; padding-left:13px;}
+	table tr .email{ width:160px; padding-left:13px;}
+	table tr .addtime{ width:160px; padding-left:13px;}
+	table tr .operate{ padding-left:13px;}
+</style>
+</head>
+
+<body>
+<div class="title"><h2>公文管理</h2></div>
+
+<div class="table-box">
+	<table>
+    	<thead>
+        	<tr>
+            	<th class="id">序号</th>
+                <th class="name">标题</th>
+				<th class="file">附件</th>
+                <th class="content">作者</th>
+				<th class="addtime">添加时间</th>
+                <th class="operate">操作</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {volist name="list" id="vo"}
+        	<tr>
+            	<td class="id">{$vo.id}</td>
+                <td class="name">&nbsp;{$vo.title}</td>
+				<td class="file">&nbsp;{$vo.filename}&nbsp;&nbsp;&nbsp;
+                    {notempty name="$vo['filename']"}
+                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">
+                        <a href="{:url('admin/doc/xiazai',array('id'=>$vo['id']))}">下载</a>
+                    </button>
+                    {/notempty}
+                </td>
+                <td class="content">{$vo.author}</td>
+                <td class="addtime">{$vo.addtime|date='Y-m-d H:i:s',###}</td>
+                <td class="operate">
+                    <a href ='javascript:;' class="show"
+                       data='{$vo.id}' data-title='{$vo.title}' >查看</a>
+                    &nbsp; &nbsp;&nbsp; <a href ='{:url('admin/doc/upd',array('id'=>$vo['id']))}'>编辑</a>
+                    &nbsp;&nbsp; <a href ='{:url('admin/doc/delete',array('id'=>$vo['id']))}'>删除</a>
+
+                </td>
+            </tr>
+        {/volist}
+        </tbody>
+
+    </table>
+    {$list->render()}
+</div>
+<div class="pagination ue-clear">
+	<div class="pagin-list">
+
+	</div>
+
+</div>
+</body>
+
+<script>
+
+    //jQuery代码
+    $(function(){
+        //给查看按钮绑定点击事件
+        $('.show').on('click',function(){
+            //获取id
+            var id = $(this).attr('data');
+            //获取公文标题
+            var title = $(this).attr('data-title');
+            layer.open({
+                type: 2,
+                title: title,
+                shadeClose: true,
+                shade: 0,   //背景透明
+                area: ['800px', '90%'],
+                content: "http://www.oa.com/oa/public/index.php/admin/doc/showContent/id/" + id
+            });
+        });
+    });
+
+
+
+
+
+
+
+
+$(".select-title").on("click",function(){
+	$(".select-list").hide();
+	$(this).siblings($(".select-list")).show();
+	return false;
+})
+$(".select-list").on("click","li",function(){
+	var txt = $(this).text();
+	$(this).parent($(".select-list")).siblings($(".select-title")).find("span").text(txt);
+})
+
+$("tbody").find("tr:odd").css("backgroundColor","#eff6fa");
+
+showRemind('input[type=text], textarea','placeholder');
+</script>
+</html>

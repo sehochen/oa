@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="__STATIC__/Admin/css/base.css" />
+<link rel="stylesheet" href="__STATIC__/Admin/css/info-mgt.css" />
+<link rel="stylesheet" href="__STATIC__/Admin/css/WdatePicker.css" />
+<title>移动办公自动化系统</title>
+</head>
+
+<body>
+<div class="title"><h2>部门管理</h2></div>
+
+<div class="table-box">
+	<table>
+    	<thead>
+        	<tr>
+            	<th class="num">序号</th>
+                <th class="name">部门</th>
+
+                <th class="node">时间</th>
+                <th class="time">备注</th>
+                <th class="operate">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+            <tr>
+            	<td class="num">{$vo.id}</td>
+                <td class="name">
+                    <?php echo str_repeat('&nbsp;&nbsp;',$vo['level']);?>
+                    {$vo.name}
+                </td>
+                <td class="node">{$vo.time}</td>
+                <td class="time">{$vo.desc}</td>
+                <td class="operate">
+                    <a href="{:url('admin/Dapa/upd',array('id'=>$vo['id']))}">编辑</a>
+                    <a href="{:url('admin/Dapa/delete',array('id'=>$vo['id']))}">删除</a>
+                </td>
+
+            </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div class="pagination ue-clear"></div>
+</body>
+<script type="text/javascript" src="__STATIC__/Admin/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/Admin/js/common.js"></script>
+<script type="text/javascript" src="__STATIC__/Admin/js/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/Admin/js/jquery.pagination.js"></script>
+<script type="text/javascript">
+$(".select-title").on("click",function(){
+	$(".select-list").hide();
+	$(this).siblings($(".select-list")).show();
+	return false;
+})
+$(".select-list").on("click","li",function(){
+	var txt = $(this).text();
+	$(this).parent($(".select-list")).siblings($(".select-title")).find("span").text(txt);
+})
+
+
+
+$("tbody").find("tr:odd").css("backgroundColor","#eff6fa");
+
+showRemind('input[type=text], textarea','placeholder');
+</script>
+</html>

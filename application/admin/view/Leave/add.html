@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="__STATIC__/Admin/css/base.css" />
+<link rel="stylesheet" href="__STATIC__/Admin/css/info-mgt.css" />
+<link rel="stylesheet" href="__STATIC__/Admin/css/WdatePicker.css" />
+<title>移动办公自动化系统</title>
+</head>
+
+    <style>
+        .tle{
+             width:200px;
+            text-align:center;
+            margin: 0 auto;
+             }
+    </style>
+<body>
+
+<div style="width: 800px; float: left" >
+    <div class="tle" ><span ><h1>请假单</h1></span></div>
+
+<div class="table-box">
+	<table>
+    	<thead>
+        	<tr >
+            	<th  style="width: 50px;">部门</th>
+                <th  style="width: 80px;">
+                    <input type="text" style="width: 80px;">
+                </th>
+
+                <th  style="width: 50px;">姓名：
+                    <input type="text" style="width: 80px;">
+                </th>
+                <th  style="width: 50px;">职务：
+                    <input type="text" style="width: 80px;">
+                </th>
+                <th  style="width: 50px;">工号：
+                    <input type="text" style="width: 80px;">
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+            	<td class="num">请假原因：
+
+                </td>
+                <td class="name">
+                    <textarea></textarea>
+                </td>
+                <td>
+                    请假时间：
+                </td>
+                <td class="time">
+                    <input name="birthday" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+                </td>
+                <td class="time">
+                    <input name="birthday" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+                </td>
+            <tr>
+
+            </tr>
+
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div class="pagination ue-clear"></div>
+</div>
+</body>
+<script type="text/javascript" src="__STATIC__/Admin/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/Admin/js/common.js"></script>
+<script type="text/javascript" src="__STATIC__/Admin/js/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/Admin/js/jquery.pagination.js"></script>
+<script type="text/javascript">
+$(".select-title").on("click",function(){
+	$(".select-list").hide();
+	$(this).siblings($(".select-list")).show();
+	return false;
+})
+$(".select-list").on("click","li",function(){
+	var txt = $(this).text();
+	$(this).parent($(".select-list")).siblings($(".select-title")).find("span").text(txt);
+})
+
+
+
+$("tbody").find("tr:odd").css("backgroundColor","#eff6fa");
+
+showRemind('input[type=text], textarea','placeholder');
+</script>
+</html>
